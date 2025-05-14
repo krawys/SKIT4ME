@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CartTest {
     private WebDriver driver;
@@ -14,6 +16,18 @@ public class CartTest {
     private HomePage homePage;
     private ProductPage productPage;
     private CartPage cartPage;
+
+    @Test
+    public void testCartFunctionality() {
+        HomePage home = new HomePage(driver, wait);
+        home.dismissWelcomeBanner();
+
+        ProductPage products = new ProductPage(driver, wait);
+        products.addFirstItemToCart();
+
+        CartPage cart = new CartPage(driver, wait);
+        assertEquals(1, cart.getCartCount(), "Item count mismatch");
+    }
 
     @BeforeAll
     void setup() {
@@ -36,11 +50,11 @@ public class CartTest {
 
         // Open and verify cart
         cartPage.openCart();
-        Assertions.assertEquals(1, cartPage.getCartItemCount(), "Cart should have 1 item");
+        assertEquals(1, cartPage.getCartItemCount(), "Cart should have 1 item");
 
         // Remove item and verify
         cartPage.removeFirstItem();
-        Assertions.assertEquals(0, cartPage.getCartItemCount(), "Cart should be empty");
+        assertEquals(0, cartPage.getCartItemCount(), "Cart should be empty");
     }
 
     @AfterAll

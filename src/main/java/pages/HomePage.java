@@ -46,7 +46,7 @@ import java.time.Duration;
         private final WebDriverWait wait;
 
         // Updated constructor to accept both driver and wait
-        public HomePage(WebDriver driver, WebDriverWait wait) {
+        public HomePage(WebDriver driver, WebDriverWait wait) {  // Add wait parameter
             this.driver = driver;
             this.wait = wait;
         }

@@ -80,4 +80,12 @@ public class CartPage {
             wait.until(d -> driver.findElements(cartItems).size() == 0);
         }
     }
+    public void removeItem(String itemName) {
+        wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[contains(text(),'" + itemName + "')]/../button")
+        )).click();
+    }
+
+    public int getCartCount() {
+    }
 }

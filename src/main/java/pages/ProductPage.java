@@ -11,13 +11,13 @@ public class ProductPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    private final By addToCartButton = By.cssSelector("button[aria-label='Add to Basket']");
-    private final By cartBadge = By.cssSelector(".mat-badge");
-
     public ProductPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
     }
+
+    private final By addToCartButton = By.cssSelector("button[aria-label='Add to Basket']");
+    private final By cartBadge = By.cssSelector(".mat-badge");
 
     public void addFirstItemToCart() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(addToCartButton))
