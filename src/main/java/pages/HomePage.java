@@ -29,17 +29,33 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class HomePage {
-    WebDriver driver;
+//public class HomePage {
+//    WebDriver driver;
+//
+//    public HomePage(WebDriver driver) {
+//        this.driver = driver;
+//    }
+//
+//    public void dismissWelcomeBanner() {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Dismiss')]"))).click();
+//    }
 
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-    }
+    public class HomePage {
+        private final WebDriver driver;
+        private final WebDriverWait wait;
 
-    public void dismissWelcomeBanner() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Dismiss')]"))).click();
-    }
+        // Updated constructor to accept both driver and wait
+        public HomePage(WebDriver driver, WebDriverWait wait) {
+            this.driver = driver;
+            this.wait = wait;
+        }
+
+        public void dismissWelcomeBanner() {
+            // Implementation using both driver and wait
+            driver.findElement(By.cssSelector(".close-dialog")).click();
+        }
+
 
     public void addFirstItemToCart() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

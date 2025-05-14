@@ -3,35 +3,44 @@ package tests;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
+import java.time.Duration;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CartTest {
-    WebDriver driver;
-    HomePage home;
-    ProductPage product;
-    CartPage cart;
+    private WebDriver driver;
+    private WebDriverWait wait;
+    private HomePage homePage;
+    private ProductPage productPage;
+    private CartPage cartPage;
 
     @BeforeAll
     void setup() {
         driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://juice-shop.herokuapp.com/#/");
-        home = new HomePage(driver);
-        product = new ProductPage(driver);
-        cart = new CartPage(driver);
+
+        homePage = new HomePage(driver, wait);
+        productPage = new ProductPage(driver, wait);
+        cartPage = new CartPage(driver, wait);
+
+        homePage.dismissWelcomeBanner();
     }
 
     @Test
-    void testAddAndRemoveFromCart() throws InterruptedException {
-        Thread.sleep(3000); // Use WebDriverWait in production!
-        home.dismissWelcomeBanner();
-        product.addFirstItemToCart();
-        product.openCart();
+    void testAddAndRemoveFromCart() {
+        // Add item to cart
+        productPage.addFirstItemToCart();
 
-        Assertions.assertEquals("1", cart.getQuantity());
-        cart.removeItem();
-        Thread.sleep(2000); // Wait for UI update
+        // Open and verify cart
+        cartPage.openCart();
+        Assertions.assertEquals(1, cartPage.getCartItemCount(), "Cart should have 1 item");
+
+        // Remove item and verify
+        cartPage.removeFirstItem();
+        Assertions.assertEquals(0, cartPage.getCartItemCount(), "Cart should be empty");
     }
 
     @AfterAll
@@ -39,6 +48,48 @@ public class CartTest {
         driver.quit();
     }
 }
+
+//package tests;
+//
+//import org.junit.jupiter.api.*;
+//import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.chrome.ChromeDriver;
+//import pages.*;
+//
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//public class CartTest {
+//    WebDriver driver;
+//    HomePage home;
+//    ProductPage product;
+//    CartPage cart;
+//
+//    @BeforeAll
+//    void setup() {
+//        driver = new ChromeDriver();
+//        driver.manage().window().maximize();
+//        driver.get("https://juice-shop.herokuapp.com/#/");
+//        home = new HomePage(driver);
+//        product = new ProductPage(driver);
+//        cart = new CartPage(driver);
+//    }
+//
+//    @Test
+//    void testAddAndRemoveFromCart() throws InterruptedException {
+//        Thread.sleep(3000); // Use WebDriverWait in production!
+//        home.dismissWelcomeBanner();
+//        product.addFirstItemToCart();
+//        product.openCart();
+//
+//        Assertions.assertEquals("1", cart.getQuantity());
+//        cart.removeItem();
+//        Thread.sleep(2000); // Wait for UI update
+//    }
+//
+//    @AfterAll
+//    void teardown() {
+//        driver.quit();
+//    }
+//}
 
 
 //package tests;
