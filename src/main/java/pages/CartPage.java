@@ -85,7 +85,4 @@ public class CartPage {
                 By.xpath("//div[contains(text(),'" + itemName + "')]/../button")
         )).click();
     }
-
-    public int getCartCount() {
-    }
 }

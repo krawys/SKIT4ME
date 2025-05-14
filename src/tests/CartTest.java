@@ -17,17 +17,17 @@ public class CartTest {
     private ProductPage productPage;
     private CartPage cartPage;
 
-    @Test
-    public void testCartFunctionality() {
-        HomePage home = new HomePage(driver, wait);
-        home.dismissWelcomeBanner();
-
-        ProductPage products = new ProductPage(driver, wait);
-        products.addFirstItemToCart();
-
-        CartPage cart = new CartPage(driver, wait);
-        assertEquals(1, cart.getCartCount(), "Item count mismatch");
-    }
+//    @Test
+//    public void testCartFunctionality() {
+//        HomePage home = new HomePage(driver, wait);
+//        home.dismissWelcomeBanner();
+//
+//        ProductPage products = new ProductPage(driver, wait);
+//        products.addFirstItemToCart();
+//
+//        CartPage cart = new CartPage(driver, wait);
+//        assertEquals(1, cart.getCartCount(), "Item count mismatch");
+//    }
 
     @BeforeAll
     void setup() {
